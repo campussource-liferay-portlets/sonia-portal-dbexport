@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:aui="http://liferay.com/faces/aui">
+  <body>
+    <aui:form id="preferencesFormId">
+      <h:messages globalOnly="true"/>
+
+      <aui:fieldset label="Export">
+
+        <aui:field label="SQL Statement">
+          <aui:col span="11">
+            <h:message for="sqlStatement" />
+            <h:inputTextarea id="sqlStatement" style="width: 100%; height: 6em" required="true" value="#{preferences.dbSqlStatement}" />
+            <em>z.B. "select * from tabelle"</em>
+          </aui:col>
+        </aui:field>
+
+        <aui:field label="Export Column Headers">
+          <aui:col span="11">
+            <h:selectBooleanCheckbox value="#{preferences.showColumnHeaders}"/>
+          </aui:col>
+        </aui:field>
+
+      </aui:fieldset>
+
+      <aui:fieldset label="Database">
+        <aui:field label="Driver">
+          <aui:col span="11">
+
+            <h:selectOneMenu style="width: 100%"  required="true" value="#{preferences.dbDriverClassName}">
+              <f:selectItem itemLabel="PostgreSQL" itemValue="org.postgresql.Driver" />
+            </h:selectOneMenu>
+
+          </aui:col>
+        </aui:field>
+        <aui:field label="URL">
+          <aui:col span="11">
+            <h:inputText style="width: 100%"  required="true" value="#{preferences.dbUrl}" />
+          </aui:col>
+        </aui:field>
+        <aui:field label="User">
+          <aui:col span="11">
+            <h:inputText style="width: 100%"   required="true" value="#{preferences.dbUser}" />
+          </aui:col>
+        </aui:field>
+        <aui:field label="Password">
+          <aui:col span="11">
+            <h:inputSecret redisplay="true"  required="true" style="width: 100%" value="#{preferences.dbPassword}" />
+          </aui:col>
+        </aui:field>
+
+        <aui:field label="Test">
+          <h:commandButton styleClass="btn" value="Connect" action="#{preferences.testDbConnection}"/>
+        </aui:field>
+
+        <aui:button-row>
+          <h:commandButton styleClass="btn btn-primary" value="Save" action="#{preferences.save}"/>
+        </aui:button-row>
+
+      </aui:fieldset>
+
+    </aui:form>
+    <aui:fieldset label="Info">
+      <aui:row>
+        <aui:col width="30"><h:outputText style="font-weight: bold" value="name"/></aui:col><aui:col    width="70"><h:outputText value="#{manifestBean.name}"/></aui:col>
+      </aui:row>
+      <aui:row>
+        <aui:col width="30"><h:outputText style="font-weight: bold" value="version"/></aui:col><aui:col  width="70"><h:outputText value="#{manifestBean.version}"/></aui:col>
+      </aui:row>
+      <aui:row>
+        <aui:col width="30"><h:outputText style="font-weight: bold" value="revision"/></aui:col><aui:col width="70"><h:outputText value="#{manifestBean.revision}"/></aui:col>
+      </aui:row>
+      <aui:row>
+        <aui:col width="30"><h:outputText style="font-weight: bold" value="build timestamp"/></aui:col><aui:col width="70"><h:outputText value="#{manifestBean.buildTimestamp}"/></aui:col>
+      </aui:row>
+      <aui:row>
+        <aui:col width="30"><h:outputText style="font-weight: bold" value="build number"/></aui:col><aui:col width="70"><h:outputText value="#{manifestBean.buildNumber}"/></aui:col>
+      </aui:row>
+    </aui:fieldset>
+  </body>
+</html>

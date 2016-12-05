@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+        <action>
+            <actionName>run</actionName>
+            <goals>
+                <goal>clean</goal>
+                <goal>install</goal>
+                <goal>package</goal>
+                <goal>liferay:deploy</goal>
+            </goals>
+        </action>
+        <action>
+            <actionName>CUSTOM-liferay deployment</actionName>
+            <displayName>liferay deployment</displayName>
+            <goals>
+                <goal>clean</goal>
+                <goal>install</goal>
+                <goal>liferay:deploy</goal>
+            </goals>
+            <activatedProfiles>
+                <activatedProfile>jrebel</activatedProfile>
+            </activatedProfiles>
+        </action>
+    </actions>

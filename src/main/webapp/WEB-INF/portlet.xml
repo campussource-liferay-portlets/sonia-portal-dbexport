@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<portlet-app 
+  xmlns="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xsi:schemaLocation="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd" 
+  version="2.0"
+>
+  
+  <portlet>
+    <portlet-name>sonia-portal-dbexport</portlet-name>
+    <display-name>sonia-portal-dbexport</display-name>
+    <portlet-class>sonia.portlet.dbexport.DbExportPortlet</portlet-class>
+    
+    <init-param>
+      <name>javax.portlet.faces.defaultViewId.view</name>
+      <value>/views/view.xhtml</value>
+    </init-param>
+    <init-param>
+      <name>javax.portlet.faces.defaultViewId.edit</name>
+      <value>/views/preferences.xhtml</value>
+    </init-param>
+    
+    <expiration-cache>0</expiration-cache>
+    
+    <supports>
+      <mime-type>text/html</mime-type>
+      <portlet-mode>view</portlet-mode>
+      <portlet-mode>edit</portlet-mode>
+    </supports>
+    
+    <supported-locale>de</supported-locale>
+    <supported-locale>en</supported-locale>
+    <resource-bundle>sonia.resources.info</resource-bundle>
+
+    <security-role-ref>
+      <role-name>administrator</role-name>
+    </security-role-ref>
+    
+    <security-role-ref>
+      <role-name>guest</role-name>
+    </security-role-ref>
+    
+    <security-role-ref>
+      <role-name>power-user</role-name>
+    </security-role-ref>
+    
+    <security-role-ref>
+      <role-name>user</role-name>
+    </security-role-ref>
+    
+  </portlet>
+  
+</portlet-app>

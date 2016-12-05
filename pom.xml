@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  
+  <modelVersion>4.0.0</modelVersion>
+  
+  <parent>
+    <groupId>sonia.portal</groupId>
+    <artifactId>sonia-portal-parent</artifactId>
+    <version>24</version>
+  </parent>
+  
+  <groupId>sonia.portal</groupId>
+  <artifactId>sonia-portal-dbexport</artifactId>
+  <packaging>war</packaging>
+  <name>sonia-portal-dbexport Portlet</name>
+  <version>1.0.0-SNAPSHOT</version>
+  
+  <!--
+  
+  <scm>
+    <connection>scm:hg:https://scm.ostfalia.de/scm/hg/portal/sonia-portal-dbexport</connection>
+    <developerConnection>scm:hg:https://scm.ostfalia.de/scm/hg/portal/sonia-portal-dbexport</developerConnection>
+    <url>https://scm.ostfalia.de/scm/hg/portal/sonia-portal-dbexport</url>
+  </scm>
+  
+  <ciManagement>
+    <system>jenkins</system>
+    <url>https://ci.ostfalia.de/jenkins/job/sonia-portal-dbexport</url>
+  </ciManagement>
+  
+  <developers>
+    
+    <developer>
+      <id>???</id>
+      <name>???</name>
+      <email>???</email>
+      <timezone>Europe/Berlin</timezone>
+    </developer>
+    
+  </developers>
+  
+  -->
+  <dependencies>
+    <dependency>
+      <groupId>sonia.annotation</groupId>
+      <artifactId>sonia-annotation-portlet</artifactId>
+      <version>1.0.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+      <version>9.3-1102-jdbc41</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-csv</artifactId>
+      <version>1.4</version>
+    </dependency>
+  </dependencies>
+</project>
