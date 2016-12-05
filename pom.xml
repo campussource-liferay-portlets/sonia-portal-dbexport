@@ -4,12 +4,12 @@
   <modelVersion>4.0.0</modelVersion>
   
   <parent>
-    <groupId>sonia.portal</groupId>
+    <groupId>de.sonia.portal</groupId>
     <artifactId>sonia-portal-parent</artifactId>
-    <version>24</version>
+    <version>1-SNAPSHOT</version>
   </parent>
   
-  <groupId>sonia.portal</groupId>
+  <groupId>de.sonia.portal</groupId>
   <artifactId>sonia-portal-dbexport</artifactId>
   <packaging>war</packaging>
   <name>sonia-portal-dbexport Portlet</name>
@@ -42,7 +42,7 @@
   -->
   <dependencies>
     <dependency>
-      <groupId>sonia.annotation</groupId>
+      <groupId>de.sonia.annotation</groupId>
       <artifactId>sonia-annotation-portlet</artifactId>
       <version>1.0.0</version>
     </dependency>
