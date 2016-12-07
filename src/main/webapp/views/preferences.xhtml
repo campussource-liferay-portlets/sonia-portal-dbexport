@@ -24,6 +24,23 @@
           </aui:col>
         </aui:field>
 
+        <aui:field label="Charset">
+          <aui:col span="11">
+            <h:selectOneMenu style="width: 100%"  required="true" value="#{preferences.exportCharset}">
+              <f:selectItem itemLabel="ISO-8859-15" itemValue="iso-8859-15" />
+              <f:selectItem itemLabel="UTF-8" itemValue="utf-8" />
+            </h:selectOneMenu>
+          </aui:col>
+        </aui:field>
+
+        
+        <aui:field label="Export Filename Template">
+          <aui:col span="11">
+            <em>wildcards: %y-year, %m-month, %d-day, %H-hour, %M-minute, %S-second</em><br/>
+            <h:inputText value="#{preferences.filenameTemplate}"/>.csv
+          </aui:col>
+        </aui:field>
+
       </aui:fieldset>
 
       <aui:fieldset label="Database">
@@ -31,7 +48,9 @@
           <aui:col span="11">
 
             <h:selectOneMenu style="width: 100%"  required="true" value="#{preferences.dbDriverClassName}">
-              <f:selectItem itemLabel="PostgreSQL" itemValue="org.postgresql.Driver" />
+              <f:selectItem itemLabel="Apache Derby (10.13.1.1)" itemValue="org.apache.derby.jdbc.ClientDriver" />
+              <f:selectItem itemLabel="MySQL (6.0.5)" itemValue="com.mysql.jdbc.Driver" />
+              <f:selectItem itemLabel="PostgreSQL (9.4.1212)" itemValue="org.postgresql.Driver" />
             </h:selectOneMenu>
 
           </aui:col>

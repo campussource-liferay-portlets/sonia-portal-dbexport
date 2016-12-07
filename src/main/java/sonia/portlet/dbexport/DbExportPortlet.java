@@ -2,8 +2,6 @@ package sonia.portlet.dbexport;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import com.google.common.base.Strings;
-
 import com.liferay.faces.bridge.GenericLiferayFacesPortlet;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -12,9 +10,6 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.PrintStream;
-
-import java.util.Enumeration;
 
 import javax.portlet.PortletException;
 import javax.portlet.PortletSession;
@@ -45,32 +40,25 @@ public class DbExportPortlet extends GenericLiferayFacesPortlet
 
     if ("true".equals(doExport))
     {
-      // response.setContentType("text/csv;charset=utf-8");
-      response.setContentType("text/csv;charset=ISO-8859-15");
-      response.setProperty("Content-Disposition", "filename=dbexport.csv");
 
       PortletSession session = request.getPortletSession();
 
       DbExportPreferencesBean preferences =
         (DbExportPreferencesBean) session.getAttribute("preferences");
 
-      /*
-       * Enumeration<String> ean = session.getAttributeNames();
-       *
-       * while( ean.hasMoreElements() )
-       * {
-       * String n = ean.nextElement();
-       * LOGGER.debug( n + " = " + session.getAttribute(n));
-       * }
-       */
-
       if (preferences != null)
       {
+
         LOGGER.debug("preferences uuid = " + preferences.getPreferencesUuid());
+
+        response.setContentType("text/csv;charset="
+          + preferences.getExportCharset());
+        response.setProperty("Content-Disposition",
+          "filename=" + preferences.getFormattedExportFilename());
 
         try (OutputStream output = response.getPortletOutputStream())
         {
-          preferences.csvExport(output);      
+          preferences.csvExport(output);
         }
       }
       else

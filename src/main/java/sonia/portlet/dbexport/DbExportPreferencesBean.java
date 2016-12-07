@@ -3,9 +3,12 @@ package sonia.portlet.dbexport;
 //~--- non-JDK imports --------------------------------------------------------
 
 import com.liferay.faces.util.portal.WebKeys;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.model.Group;
+import com.liferay.portal.model.User;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portlet.expando.model.ExpandoBridge;
 
@@ -32,9 +35,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.TimeZone;
 import java.util.UUID;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 
@@ -73,21 +77,21 @@ public class DbExportPreferencesBean implements Serializable
    */
   public void csvExport(OutputStream outputStream)
   {
-    try (PrintStream out = new PrintStream(outputStream, true, "iso-8859-15"))
+    try (PrintStream out = new PrintStream(outputStream, true, exportCharset))
     {
       Connection connection = null;
 
       try
       {
         connection = getDatabaseConnection();
-        
+
         try (Statement statement = connection.createStatement();
           final ResultSet resultSet = statement.executeQuery(dbSqlStatement))
         {
           try
           {
-            LOGGER.debug( "export csv");
-            
+            LOGGER.debug("export csv");
+
             try (CSVPrinter printer = CSVFormat.EXCEL.withDelimiter(
               ';').withHeader(resultSet).print(out))
             {
@@ -318,6 +322,69 @@ public class DbExportPreferencesBean implements Serializable
   }
 
   /**
+   * Get the value of exportCharset
+   *
+   * @return the value of exportCharset
+   */
+  public String getExportCharset()
+  {
+    return exportCharset;
+  }
+
+  /**
+   * Get the value of filenameTemplate
+   *
+   * @return the value of filenameTemplate
+   */
+  public String getFilenameTemplate()
+  {
+    return filenameTemplate;
+  }
+
+  /**
+   * Method description
+   *
+   *
+   * @return
+   */
+  public String getFormattedExportFilename()
+  {
+
+    String filename = filenameTemplate + ".csv";
+
+    try
+    {
+      User portalUser = userCredentials.getPortalUser();
+      TimeZone timeZone = portalUser.getTimeZone();
+
+      LOGGER.debug("users timezone = " + timeZone.getID());
+
+      Calendar calendar = new GregorianCalendar(timeZone);
+
+      filename = filename.replaceAll("%y",
+        Integer.toString(calendar.get(Calendar.YEAR)));
+      filename = filename.replaceAll("%m",
+        format2Digits(calendar.get(Calendar.MONTH) + 1));
+      filename = filename.replaceAll("%d",
+        format2Digits(calendar.get(Calendar.DAY_OF_MONTH)));
+
+      filename = filename.replaceAll("%H",
+        format2Digits(calendar.get(Calendar.HOUR_OF_DAY)));
+      filename = filename.replaceAll("%M",
+        format2Digits(calendar.get(Calendar.MINUTE)));
+      filename = filename.replaceAll("%S",
+        format2Digits(calendar.get(Calendar.SECOND)));
+
+    }
+    catch (PortalException | SystemException ex)
+    {
+      LOGGER.error(ex);
+    }
+
+    return filename;
+  }
+
+  /**
    * Method description
    *
    *
@@ -452,6 +519,26 @@ public class DbExportPreferencesBean implements Serializable
   }
 
   /**
+   * Set the value of exportCharset
+   *
+   * @param exportCharset new value of exportCharset
+   */
+  public void setExportCharset(String exportCharset)
+  {
+    this.exportCharset = exportCharset;
+  }
+
+  /**
+   * Set the value of filenameTemplate
+   *
+   * @param filenameTemplate new value of filenameTemplate
+   */
+  public void setFilenameTemplate(String filenameTemplate)
+  {
+    this.filenameTemplate = filenameTemplate;
+  }
+
+  /**
    * Method description
    *
    *
@@ -472,6 +559,23 @@ public class DbExportPreferencesBean implements Serializable
   public void setTextDelemiter(String textDelemiter)
   {
     this.textDelemiter = textDelemiter;
+  }
+
+  //~--- methods --------------------------------------------------------------
+
+  /**
+   * Method description
+   *
+   *
+   * @param n
+   *
+   * @return
+   */
+  private String format2Digits(int n)
+  {
+    return (n < 10)
+      ? "0" + n
+      : Integer.toString(n);
   }
 
   //~--- fields ---------------------------------------------------------------
@@ -510,6 +614,14 @@ public class DbExportPreferencesBean implements Serializable
   /** Field description */
   @SoniaPortletPreference(value = ";")
   private String columnSeperator;
+
+  /** Field description */
+  @SoniaPortletPreference(value = "dbexport-%y%m%d%H%M%S")
+  private String filenameTemplate;
+
+  /** Field description */
+  @SoniaPortletPreference(value = "iso-8859-15")
+  private String exportCharset;
 
   /** Field description */
   private boolean initialized;
