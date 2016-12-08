@@ -13,33 +13,26 @@
   <artifactId>sonia-portal-dbexport</artifactId>
   <packaging>war</packaging>
   <name>sonia-portal-dbexport Portlet</name>
-  <version>1.0.0-SNAPSHOT</version>
+  <version>1.0.0</version>
   
-  <!--
+  <description>PORTLET: Database to CSV export portlet (Java 8, Liferay 6.2 CE)</description>
   
   <scm>
-    <connection>scm:hg:https://scm.ostfalia.de/scm/hg/portal/sonia-portal-dbexport</connection>
-    <developerConnection>scm:hg:https://scm.ostfalia.de/scm/hg/portal/sonia-portal-dbexport</developerConnection>
-    <url>https://scm.ostfalia.de/scm/hg/portal/sonia-portal-dbexport</url>
+    <connection>scm:git:https://github.com/campussource-liferay-portlets/sonia-portal-dbexport</connection>
+    <developerConnection>scm:git:https://github.com/campussource-liferay-portlets/sonia-portal-dbexport</developerConnection>
+    <url>https://github.com/campussource-liferay-portlets/sonia-portal-dbexport</url>
   </scm>
   
-  <ciManagement>
-    <system>jenkins</system>
-    <url>https://ci.ostfalia.de/jenkins/job/sonia-portal-dbexport</url>
-  </ciManagement>
-  
-  <developers>
-    
+  <developers>  
     <developer>
-      <id>???</id>
-      <name>???</name>
-      <email>???</email>
+      <id>thorsten-l</id>
+      <name>Thorsten Ludewig</name>
+      <email>t.ludewig@ostfalia.de</email>
       <timezone>Europe/Berlin</timezone>
     </developer>
-    
   </developers>
-  
-  -->
+
+
   <dependencies>
     <dependency>
       <groupId>de.sonia.annotation</groupId>
