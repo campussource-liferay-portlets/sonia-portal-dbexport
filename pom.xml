@@ -13,7 +13,7 @@
   <artifactId>sonia-portal-dbexport</artifactId>
   <packaging>war</packaging>
   <name>sonia-portal-dbexport Portlet</name>
-  <version>1.0.1-SNAPSHOT</version>
+  <version>1.0.1</version>
   
   <description>PORTLET: Database to CSV export portlet (Java 8, Liferay 6.2 CE)</description>
   
